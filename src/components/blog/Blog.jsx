@@ -6,6 +6,7 @@ import sortPosts from "./utils";
 import LatestPost from "./LatestPost";
 import UserPostsIndex from "./UserPostsIndex";
 import { Card, CardContent, CardTitle } from "../ui/card";
+import { Button } from "../ui/button";
 
 const Blog = ({ signedIn }) => {
   const [updatedPosts, setUpdatedPosts] = useState(allPosts);
@@ -41,12 +42,11 @@ const Blog = ({ signedIn }) => {
             <div className="p-1">{localTime}</div>
           </div>
           <div className="my-1">
-            <button className="btn btn-primary" onClick={getLatestPosts}>
+            <Button onClick={getLatestPosts}>
               Get&nbsp;Latest&nbsp;Post
-            </button>
+            </Button>
           </div>
           <hr className="hr my-2" />
-
           <LatestPost signedIn={signedIn} post={sortedPosts[0]} />
         </div>
         <UserPostsIndex signedIn={signedIn} />

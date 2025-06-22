@@ -1,9 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Post from "./Post";
-
+import { Card, CardContent } from "@/components/ui/card";
 const LatestPost = ({ signedIn, post }) => {
-  
   const [likesCount, setLikesCount] = useState(null);
 
   // change likesCount every 3 seconds
@@ -21,20 +20,20 @@ const LatestPost = ({ signedIn, post }) => {
   console.log("Rendering LatestPost component");
 
   return (
-    <div className="my-2 mx-2 p-2 border border-rounded">
+    <Card className="my-2 mx-2 p-2 border border-rounded">
       {post ? (
         <>
           <Post signedIn={signedIn} post={post} />
           {likesCount && (
-            <div className="my-1 p-1">
+            <CardContent className="my-1 p-1">
               <span>{likesCount}</span>&nbsp;<span>Likes</span>
-            </div>
+            </CardContent>
           )}
         </>
       ) : (
         <p>Click on Get Latest Post button</p>
       )}
-    </div>
+    </Card>
   );
 };
 

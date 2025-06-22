@@ -1,15 +1,15 @@
 "use client";
 import React from "react";
 import UserPost from "./UserPost";
-import {Button} from "@/components/ui/button";
-
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 const UserPostsList = ({ userPosts, deletePost }) => {
   // console.log('Rendering UserPostsList component');
 
   return (
-    <div className="px-1">
+    <Card className="px-1">
       {userPosts.map((post) => (
-        <div key={post.id} className="my-1 box flex-row">
+        <CardContent key={post.id} className="my-1 flex gap-2 items-center justify-between">
           <UserPost post={post} />
           <Button
             variant="destructive"
@@ -18,9 +18,9 @@ const UserPostsList = ({ userPosts, deletePost }) => {
           >
             Delete
           </Button>
-        </div>
+        </CardContent>
       ))}
-    </div>
+    </Card>
   );
 };
 

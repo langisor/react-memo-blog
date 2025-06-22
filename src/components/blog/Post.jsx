@@ -1,20 +1,20 @@
 "use client";
 import React from "react";
-
+import { Card, CardContent } from "@/components/ui/card";
 const Post = ({ signedIn, post }) => {
   console.log("Rendering Post component");
-  
+
   // console.log(signedIn);
 
   return (
-    <div className="">
+    <Card className="">
       {post && (
-        <div className="post p-1">
+        <CardContent className="post p-1">
           <h1 className="heading-sm py-1">{post.title}</h1>
           <p>{post.body}</p>
-        </div>
+        </CardContent>
       )}
-    </div>
+    </Card>
   );
 };
 
