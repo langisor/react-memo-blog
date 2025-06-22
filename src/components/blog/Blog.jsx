@@ -23,7 +23,7 @@ const Blog = ({ signedIn }) => {
   useEffect(() => {
     const id = setInterval(
       () => setLocalTime(new Date().toLocaleTimeString()),
-      3000
+      1000
     );
     return () => clearInterval(id);
   }, []);
