@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import UserPost from "./UserPost";
+import {Button} from "@/components/ui/button";
 
 const UserPostsList = ({ userPosts, deletePost }) => {
   // console.log('Rendering UserPostsList component');
@@ -10,13 +11,13 @@ const UserPostsList = ({ userPosts, deletePost }) => {
       {userPosts.map((post) => (
         <div key={post.id} className="my-1 box flex-row">
           <UserPost post={post} />
-          <button
-            className="btn btn-danger"
+          <Button
+            variant="destructive"
             data-post-id={post.id}
             onClick={deletePost}
           >
             Delete
-          </button>
+          </Button>
         </div>
       ))}
     </div>

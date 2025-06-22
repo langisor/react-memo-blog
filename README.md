@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# `React.memo`
 
-## Getting Started
+The `React.memo` syntax involves wrapping a functional component with the `memo` higher-order component (HOC) imported from React. This HOC memoizes the component, preventing unnecessary re-renders if its props have not changed.
 
-First, run the development server:
+**Here are the common ways to use `React.memo`** :
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+1. Direct Export:
+
+```js
+
+import { memo } from 'react';
+const MyComponent = memo((props) => {
+  // Component logic here
+  return <div>{props.data}</div>;
+});
+
+export default MyComponent;
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2.**Separate Memoized Variable** :
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```js
+import { memo } from 'react';
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+const MyFunctionalComponent = (props) => {
+  // Component logic here
+  return <div>{props.data}</div>;
+};
 
-## Learn More
+const MemoizedMyComponent = memo(MyFunctionalComponent);
+export default MemoizedMyComponent;
+```
 
-To learn more about Next.js, take a look at the following resources:
+3.**With a Custom Comparison Function (Optional)**:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+React.memo by default performs a shallow comparison of props. If a more complex comparison is needed, a custom `arePropsEqual` function can be provided as the second argument:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```js
+import { memo } from 'react';
 
-## Deploy on Vercel
+const MyComponent = memo((props) => {
+  // Component logic here
+  return <div>{props.data}</div>;
+}, (prevProps, nextProps) => {
+  // Custom comparison logic
+  return prevProps.someComplexObject.id === nextProps.someComplexObject.id;
+});
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+export default MyComponent;
+```
