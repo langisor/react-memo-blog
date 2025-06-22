@@ -36,15 +36,36 @@ export default MemoizedMyComponent;
 React.memo by default performs a shallow comparison of props. If a more complex comparison is needed, a custom `arePropsEqual` function can be provided as the second argument:
 
 ```js
-import { memo } from 'react';
-
-const MyComponent = memo((props) => {
-  // Component logic here
-  return <div>{props.data}</div>;
-}, (prevProps, nextProps) => {
-  // Custom comparison logic
-  return prevProps.someComplexObject.id === nextProps.someComplexObject.id;
+interface Props {
+  title: string;
+  content: string;
+}
+const MemoPost = React.memo(({ title, content }: Props) => {
+  return (
+      // ...
+          <h1 className="heading-lg">{title}</h1>
+          <p>{content}</p>
+      
+  );
 });
 
-export default MyComponent;
+// custom comparator function
+const customComparator = (prevProps: Props, nextProps: Props) => {
+
+  // shallow comparison returns true if equal object references even if the props values are different
+  // return prevProps===nextProps;
+    // deep comparison
+  return (
+    prevProps.title === nextProps.title &&
+    prevProps.content === nextProps.content
+  );
+
+  // we can also omitting specific props from the comparison, for example this component will not re-render if the content prop changes
+  // return prevProps.title === nextProps.title;
+};
+
+// memoized component with custom comparator
+const MemoPostViewer = React.memo(MemoPost, customComparator);
+export default MemoPostViewer;
+
 ```

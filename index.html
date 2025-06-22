@@ -1,92 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>README</title>
-    <style>
-      /* Basic styles for readability */
-      body {
-        font-family: sans-serif;
-        font-size: 1.4rem;
-        margin: 2em auto;
-        padding: 0 1em;
-        line-height: 1.4;
-      }
-      img {
-        max-width: 100%;
-        height: auto;
-      }
-      pre {
-        background-color: #f4f4f4;
-        padding: 1em;
-        overflow-x: auto;
-        white-space: pre-wrap;
-      }
-      code {
-        font-family: monospace;
-      }
-      .hljs-keyword,
-      .hljs-params {
-        color: blue;
-      }
-      .hljs-string,
-      .hljs-comment {
-        color: green;
-      }
-    </style>
-  </head>
-  <body>
-    <h1 id="-react-memo-"><code>React.memo</code></h1>
-    <p>
-      The <code>React.memo</code> syntax involves wrapping a functional
-      component with the <code>memo</code> higher-order component (HOC) imported
-      from React. This HOC memoizes the component, preventing unnecessary
-      re-renders if its props have not changed.
-    </p>
-    <p>
-      <strong>Here are the common ways to use <code>React.memo</code></strong> :
-    </p>
-    <ol>
-      <li>Direct Export:</li>
-    </ol>
-    <pre><code class="lang-js">
-<span class="hljs-keyword">import</span> { memo } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">const</span> MyComponent = memo(<span class="hljs-function">(<span class="hljs-params">props</span>) =&gt;</span> {
-  <span class="hljs-comment">// Component logic here</span>
-  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{props.data}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>README</title>
+	<style>
+		/* Basic styles for readability */
+		body {
+			font-family: sans-serif;
+			max-width: 800px;
+			margin: 2em auto;
+			padding: 0 1em;
+			line-height: 1.6;
+		}
+		img { max-width: 100%; height: auto; }
+		pre { background-color: #f4f4f4; padding: 1em; overflow-x: auto; }
+		code { font-family: monospace; }
+	</style>
+</head>
+<body>
+	<h1><code>React.memo</code></h1>
+<p>The <code>React.memo</code> syntax involves wrapping a functional component with the <code>memo</code> higher-order component (HOC) imported from React. This HOC memoizes the component, preventing unnecessary re-renders if its props have not changed.</p>
+<p><strong>Here are the common ways to use <code>React.memo</code></strong> :</p>
+<ol>
+<li>Direct Export:</li>
+</ol>
+<pre><code class="language-js">
+import { memo } from 'react';
+const MyComponent = memo((props) =&gt; {
+  // Component logic here
+  return &lt;div&gt;{props.data}&lt;/div&gt;;
 });
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> MyComponent;
+export default MyComponent;
 </code></pre>
-    <p>2.<strong>Separate Memoized Variable</strong> :</p>
-    <pre><code class="lang-js"><span class="hljs-keyword">import</span> { memo } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<p>2.<strong>Separate Memoized Variable</strong> :</p>
+<pre><code class="language-js">import { memo } from 'react';
 
-<span class="hljs-keyword">const</span> MyFunctionalComponent = <span class="hljs-function">(<span class="hljs-params">props</span>) =&gt;</span> {
-  <span class="hljs-comment">// Component logic here</span>
-  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{props.data}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
+const MyFunctionalComponent = (props) =&gt; {
+  // Component logic here
+  return &lt;div&gt;{props.data}&lt;/div&gt;;
 };
 
-<span class="hljs-keyword">const</span> MemoizedMyComponent = memo(MyFunctionalComponent);
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> MemoizedMyComponent;
+const MemoizedMyComponent = memo(MyFunctionalComponent);
+export default MemoizedMyComponent;
 </code></pre>
-    <p>3.<strong>With a Custom Comparison Function (Optional)</strong>:</p>
-    <p>
-      React.memo by default performs a shallow comparison of props. If a more
-      complex comparison is needed, a custom <code>arePropsEqual</code> function
-      can be provided as the second argument:
-    </p>
-    <pre><code class="lang-js"><span class="hljs-keyword">import</span> { memo } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-
-<span class="hljs-keyword">const</span> MyComponent = memo(<span class="hljs-function">(<span class="hljs-params">props</span>) =&gt;</span> {
-  <span class="hljs-comment">// Component logic here</span>
-  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{props.data}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>;
-}, (prevProps, nextProps) =&gt; {
-  <span class="hljs-comment">// Custom comparison logic</span>
-  <span class="hljs-keyword">return</span> prevProps.someComplexObject.id === nextProps.someComplexObject.id;
+<p>3.<strong>With a Custom Comparison Function (Optional)</strong>:</p>
+<p>React.memo by default performs a shallow comparison of props. If a more complex comparison is needed, a custom <code>arePropsEqual</code> function can be provided as the second argument:</p>
+<pre><code class="language-js">interface Props {
+  title: string;
+  content: string;
+}
+const MemoPost = React.memo(({ title, content }: Props) =&gt; {
+  return (
+      // ...
+          &lt;h1 className=&quot;heading-lg&quot;&gt;{title}&lt;/h1&gt;
+          &lt;p&gt;{content}&lt;/p&gt;
+      
+  );
 });
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> MyComponent;
+// custom comparator function
+const customComparator = (prevProps: Props, nextProps: Props) =&gt; {
+
+  // shallow comparison returns true if equal object references even if the props values are different
+  // return prevProps===nextProps;
+    // deep comparison
+  return (
+    prevProps.title === nextProps.title &amp;&amp;
+    prevProps.content === nextProps.content
+  );
+
+  // we can also omitting specific props from the comparison, for example this component will not re-render if the content prop changes
+  // return prevProps.title === nextProps.title;
+};
+
+// memoized component with custom comparator
+const MemoPostViewer = React.memo(MemoPost, customComparator);
+export default MemoPostViewer;
+
 </code></pre>
-  </body>
+
+</body>
 </html>
